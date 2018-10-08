@@ -1,0 +1,10 @@
+*.tfstate.*
+*.bak
+*.terraform/
+lab1/.terraform*
+lab2/.terraform*
+lab3/.terraform*
+lab3/solution/.terraform*
+*tfstate*
+lab1/*tfstate*
+lab*/*tfstate*
