@@ -7,12 +7,14 @@ provider "azurerm" {
   environment     = "${var.environment}"
 }
 
+#Exercise 0
 resource "azurerm_resource_group" "asp-webapp"
 {
   name = "<Update Resource Group>"
   location = "eastus"
 }
 
+#Exercise 1
 resource "azurerm_app_service_plan" "asp-webapp"
 {
   name = "asp-webapp-plan"
@@ -25,9 +27,11 @@ resource "azurerm_app_service_plan" "asp-webapp"
     size = "B1"
   }
 
+  #Exercise 4
   depends_on = ["azurerm_sql_database.db"]
 }
 
+#Exercise 2
 resource "azurerm_app_service" "asp-webapp" {
   name                = "asp-webapp-webapp"
   location            = "${azurerm_resource_group.asp-webapp.location}"
@@ -40,9 +44,11 @@ resource "azurerm_app_service" "asp-webapp" {
     default_documents = ["hostingstart.html"]
   }
 
+  #Exercise 4
   depends_on = ["azurerm_sql_database.db"]
 }
 
+#Exercise 3
 resource "azurerm_app_service_slot" "asp-webapp" {
 
   name                = "dev"
@@ -57,15 +63,18 @@ resource "azurerm_app_service_slot" "asp-webapp" {
     default_documents = ["hostingstart.html"]
   }
 
+  #Exercise 5
   connection_string {
     name = "Database"
     type = "SQLAzure"
     value = "Server=tcp:${azurerm_sql_server.server.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_sql_database.db.name};Persist Security Info=False;User ID=${azurerm_sql_server.server.administrator_login};Password=${azurerm_sql_server.server.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 
+  #Exercise 4
   depends_on = ["azurerm_sql_database.db"]
 }
 
+#Exercise 4
 resource "azurerm_sql_server" "server" {
     name = "hd-sqlserver"
     resource_group_name = "${azurerm_resource_group.asp-webapp.name}"
@@ -75,6 +84,7 @@ resource "azurerm_sql_server" "server" {
     administrator_login_password = "Pas5w0wrd123!4"
 }
 
+#Exercise 4
 resource "azurerm_sql_database" "db" {
   name                = "hd-sqldatabase"
   resource_group_name = "${azurerm_resource_group.asp-webapp.name}"
