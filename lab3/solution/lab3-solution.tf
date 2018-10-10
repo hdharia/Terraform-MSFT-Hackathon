@@ -90,10 +90,6 @@ resource "azurerm_sql_database" "db" {
   resource_group_name = "${azurerm_resource_group.asp-webapp.name}"
     location = "East US"
     server_name = "${azurerm_sql_server.server.name}"
-
-  tags {
-    environment = "production"
-  }
 }
 
 output "app_service_default_hostname" {
